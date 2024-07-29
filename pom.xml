@@ -67,7 +67,7 @@
 		</dependency>
 		<dependency>
 			<groupId>al.utile</groupId>
-			<artifactId>utile-rest-common</artifactId>
+			<artifactId>utile-common</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
