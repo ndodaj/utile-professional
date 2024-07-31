@@ -1,11 +1,13 @@
 package al.utile.professional.dto;
 
+
+import java.util.List;
+
 public record ProfessionalDto(
-        Long entryId,
-        Long userId,
-        Long professionId,
+        Long id,
         String description,
-        String reason,
-        String profile,
-        Double fee) {
+        Integer travelDistance,
+        List<ProfessionDto> professions,
+        Double fee
+) {
 }

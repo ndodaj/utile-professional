@@ -1,11 +1,30 @@
 spring:
   application:
     name: utile-professional
+
   datasource:
-    url: jdbc:postgresql://localhost:5432/utile
+    url: jdbc:postgresql://localhost:5432/utile-db
     username: postgres
     password: root
     driver-class-name: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate:
+        globally_quoted_identifiers: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    generate-ddl: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    table: SCHEMA_HISTORY
+    locations:
+      - classpath:/db/migration
+      - classpath:/db/migration-data
+    schemas: professional
 
 
 springdoc:

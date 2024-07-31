@@ -2,8 +2,12 @@ package al.utile.professional.service;
 
 import al.utile.professional.converter.ProfessionalConverter;
 import al.utile.professional.dto.ProfessionalDto;
+import al.utile.professional.entity.Profession;
 import al.utile.professional.entity.Professional;
+import al.utile.professional.repository.ProfessionRepository;
 import al.utile.professional.repository.ProfessionalRepository;
+import jakarta.ws.rs.NotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,13 +16,15 @@ import java.util.stream.Collectors;
 @Service
 public class ProfessionalService {
 
-    private final ProfessionalRepository professionalRepository;
-    private final ProfessionalConverter professionalConverter;
+    @Autowired
+    private ProfessionalRepository professionalRepository;
 
-    public ProfessionalService(ProfessionalRepository professionalRepository, ProfessionalConverter professionalConverter) {
-        this.professionalRepository = professionalRepository;
-        this.professionalConverter = professionalConverter;
-    }
+    @Autowired
+    private ProfessionalConverter professionalConverter;
+
+    @Autowired
+    private ProfessionRepository professionRepository;
+
 
     public List<ProfessionalDto> getAllProfessionals() {
         return professionalRepository.findAll().stream()
@@ -38,19 +44,29 @@ public class ProfessionalService {
         return professionalConverter.toDto(professional);
     }
 
-    public ProfessionalDto updateProfessional(Long id, ProfessionalDto ProfessionalDto) {
-        Professional professional = professionalRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Professional not found"));
+    public ProfessionalDto updateProfessional(Long id, ProfessionalDto professionalDto) {
+        // Fetch the existing entity
+        Professional existingProfessional = professionalRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Professional not found with id " + id));
 
-        professional.setUserId(ProfessionalDto.userId());
-        professional.setProfession(professional.getProfession());
-        professional.setDescription(ProfessionalDto.description());
-        professional.setReason(ProfessionalDto.reason());
-        professional.setProfile(ProfessionalDto.profile());
-        professional.setFee(ProfessionalDto.fee());
+        // Update the fields
+        existingProfessional.setDescription(professionalDto.description());
+        existingProfessional.setTravelDistance(professionalDto.travelDistance());
+        existingProfessional.setFee(professionalDto.fee());
 
-        professional = professionalRepository.save(professional);
-        return professionalConverter.toDto(professional);
+        if (professionalDto.professions() != null) {
+            List<Profession> professions = professionalDto.professions().stream()
+                    .map(professionDto -> professionRepository.findById(professionDto.id())
+                            .orElseThrow(() -> new NotFoundException("Profession not found with id " + professionDto.id())))
+                    .collect(Collectors.toList());
+            existingProfessional.setProfessions(professions);
+        }
+
+        // Save the updated entity
+        Professional updatedProfessional = professionalRepository.save(existingProfessional);
+
+        // Convert the updated entity back to a DTO
+        return professionalConverter.toDto(updatedProfessional);
     }
 
     public void deleteProfessional(Long id) {

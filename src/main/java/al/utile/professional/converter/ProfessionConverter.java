@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class ProfessionConverter {
 
     public ProfessionDto toDto(Profession entity) {
-        return new ProfessionDto(entity.getId(), entity.getName(), entity.getCategory(), entity.getCategory());
+        return new ProfessionDto(entity.getId(), entity.getName(), entity.getCategory(), entity.getStatus());
     }
 
     public Profession toEntity(ProfessionDto dto) {
