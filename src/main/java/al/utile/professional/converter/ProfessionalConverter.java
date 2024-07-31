@@ -1,10 +1,10 @@
 package al.utile.professional.converter;
 
-import al.utile.professional.dto.ProfessionDto;
-import al.utile.professional.dto.ProfessionalDto;
 import al.utile.professional.entity.Profession;
 import al.utile.professional.entity.Professional;
 import al.utile.professional.repository.ProfessionRepository;
+import al.utile.utile_common.utile.ProfessionDto;
+import al.utile.utile_common.utile.ProfessionalDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

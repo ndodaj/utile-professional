@@ -2,8 +2,8 @@ package al.utile.professional.controller;
 
 
 import al.utile.professional.converter.ProfessionConverter;
-import al.utile.professional.dto.ProfessionDto;
 import al.utile.professional.service.ProfessionService;
+import al.utile.utile_common.utile.ProfessionDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
