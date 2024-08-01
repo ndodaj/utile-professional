@@ -2,22 +2,14 @@ package al.utile.professional.converter;
 
 import al.utile.professional.entity.Profession;
 import al.utile.professional.entity.Professional;
-import al.utile.professional.repository.ProfessionRepository;
 import al.utile.utile_common.utile.ProfessionDto;
 import al.utile.utile_common.utile.ProfessionalDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class ProfessionalConverter {
-
-    private final ProfessionRepository professionRepository;
-
-    public ProfessionalConverter(ProfessionRepository professionRepository) {
-        this.professionRepository = professionRepository;
-    }
 
     public ProfessionalDto toDto(Professional entity) {
         if (entity == null) {
@@ -27,7 +19,7 @@ public class ProfessionalConverter {
         List<ProfessionDto> professionDtos = entity.getProfessions() != null ?
                 entity.getProfessions().stream()
                         .map(this::toProfessionDto)
-                        .collect(Collectors.toList()) : null;
+                        .toList() : null;
 
         return new ProfessionalDto(
                 entity.getId(),
@@ -48,7 +40,7 @@ public class ProfessionalConverter {
         List<Profession> professions = dto.professions() != null ?
                 dto.professions().stream()
                         .map(this::toProfessionEntity)
-                        .collect(Collectors.toList()) : null;
+                        .toList() : null;
 
         Professional entity = new Professional();
         entity.setId(dto.id());

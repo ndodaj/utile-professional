@@ -4,10 +4,10 @@ import al.utile.professional.converter.ProfessionConverter;
 import al.utile.professional.entity.Profession;
 import al.utile.professional.repository.ProfessionRepository;
 import al.utile.utile_common.utile.ProfessionDto;
+import jakarta.ws.rs.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ProfessionService {
@@ -23,28 +23,28 @@ public class ProfessionService {
     public List<ProfessionDto> getAllProfessions() {
         return professionRepository.findAll().stream()
                 .map(professionConverter::toDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public ProfessionDto getProfessionById(Long id) {
         return professionRepository.findById(id)
                 .map(professionConverter::toDto)
-                .orElseThrow(() -> new RuntimeException("Profession not found"));
+                .orElseThrow(() -> new NotFoundException("Profession not found"));
     }
 
-    public ProfessionDto createProfession(ProfessionDto ProfessionDto) {
-        Profession profession = professionConverter.toEntity(ProfessionDto);
+    public ProfessionDto createProfession(ProfessionDto professionDto) {
+        Profession profession = professionConverter.toEntity(professionDto);
         profession = professionRepository.save(profession);
         return professionConverter.toDto(profession);
     }
 
-    public ProfessionDto updateProfession(Long id, ProfessionDto ProfessionDto) {
+    public ProfessionDto updateProfession(Long id, ProfessionDto professionDto) {
         Profession profession = professionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Profession not found"));
 
-        profession.setName(ProfessionDto.name());
-        profession.setCategory(ProfessionDto.category());
-        profession.setStatus(ProfessionDto.status());
+        profession.setName(professionDto.name());
+        profession.setCategory(professionDto.category());
+        profession.setStatus(professionDto.status());
 
         profession = professionRepository.save(profession);
         return professionConverter.toDto(profession);

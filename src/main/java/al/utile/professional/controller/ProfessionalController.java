@@ -1,9 +1,7 @@
 package al.utile.professional.controller;
 
-import al.utile.professional.converter.ProfessionalConverter;
 import al.utile.professional.service.ProfessionalService;
 import al.utile.utile_common.utile.ProfessionalDto;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,11 +18,11 @@ import java.util.List;
 @RequestMapping("/api/professionals")
 public class ProfessionalController {
 
-    @Autowired
-    private ProfessionalService professionalService;
+    private final ProfessionalService professionalService;
 
-    @Autowired
-    private ProfessionalConverter professionalConverter;
+    public ProfessionalController(ProfessionalService professionalService) {
+        this.professionalService = professionalService;
+    }
 
     @GetMapping
     public List<ProfessionalDto> getAllProfessionals() {
@@ -37,13 +35,13 @@ public class ProfessionalController {
     }
 
     @PostMapping
-    public ProfessionalDto createProfessional(@RequestBody ProfessionalDto ProfessionalDto) {
-        return professionalService.createProfessional(ProfessionalDto);
+    public ProfessionalDto createProfessional(@RequestBody ProfessionalDto professionalDto) {
+        return professionalService.createProfessional(professionalDto);
     }
 
     @PutMapping("/{id}")
-    public ProfessionalDto updateProfessional(@PathVariable Long id, @RequestBody ProfessionalDto ProfessionalDto) {
-        return professionalService.updateProfessional(id, ProfessionalDto);
+    public ProfessionalDto updateProfessional(@PathVariable Long id, @RequestBody ProfessionalDto professionalDto) {
+        return professionalService.updateProfessional(id, professionalDto);
     }
 
     @DeleteMapping("/{id}")

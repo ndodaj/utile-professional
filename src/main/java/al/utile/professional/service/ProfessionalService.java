@@ -7,29 +7,30 @@ import al.utile.professional.repository.ProfessionRepository;
 import al.utile.professional.repository.ProfessionalRepository;
 import al.utile.utile_common.utile.ProfessionalDto;
 import jakarta.ws.rs.NotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ProfessionalService {
 
-    @Autowired
-    private ProfessionalRepository professionalRepository;
+    private final ProfessionalRepository professionalRepository;
 
-    @Autowired
-    private ProfessionalConverter professionalConverter;
+    private final ProfessionalConverter professionalConverter;
 
-    @Autowired
-    private ProfessionRepository professionRepository;
+    private final ProfessionRepository professionRepository;
+
+    public ProfessionalService(ProfessionalRepository professionalRepository, ProfessionalConverter professionalConverter, ProfessionRepository professionRepository) {
+        this.professionalRepository = professionalRepository;
+        this.professionalConverter = professionalConverter;
+        this.professionRepository = professionRepository;
+    }
 
 
     public List<ProfessionalDto> getAllProfessionals() {
         return professionalRepository.findAll().stream()
                 .map(professionalConverter::toDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public ProfessionalDto getProfessionalById(Long id) {
@@ -38,8 +39,8 @@ public class ProfessionalService {
                 .orElseThrow(() -> new RuntimeException("Professional not found"));
     }
 
-    public ProfessionalDto createProfessional(ProfessionalDto ProfessionalDto) {
-        Professional professional = professionalConverter.toEntity(ProfessionalDto);
+    public ProfessionalDto createProfessional(ProfessionalDto professionalDto) {
+        Professional professional = professionalConverter.toEntity(professionalDto);
         professional = professionalRepository.save(professional);
         return professionalConverter.toDto(professional);
     }
@@ -58,7 +59,7 @@ public class ProfessionalService {
             List<Profession> professions = professionalDto.professions().stream()
                     .map(professionDto -> professionRepository.findById(professionDto.id())
                             .orElseThrow(() -> new NotFoundException("Profession not found with id " + professionDto.id())))
-                    .collect(Collectors.toList());
+                    .toList();
             existingProfessional.setProfessions(professions);
         }
 
