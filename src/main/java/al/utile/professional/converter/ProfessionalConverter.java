@@ -2,8 +2,8 @@ package al.utile.professional.converter;
 
 import al.utile.professional.entity.Profession;
 import al.utile.professional.entity.Professional;
-import al.utile.utile_common.utile.ProfessionDto;
-import al.utile.utile_common.utile.ProfessionalDto;
+import al.utile.utile_common.utile.dto.ProfessionDto;
+import al.utile.utile_common.utile.dto.ProfessionalDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

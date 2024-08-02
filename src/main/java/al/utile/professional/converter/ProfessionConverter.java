@@ -1,7 +1,7 @@
 package al.utile.professional.converter;
 
 import al.utile.professional.entity.Profession;
-import al.utile.utile_common.utile.ProfessionDto;
+import al.utile.utile_common.utile.dto.ProfessionDto;
 import org.springframework.stereotype.Component;
 
 @Component

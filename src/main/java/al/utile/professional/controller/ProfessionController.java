@@ -2,7 +2,7 @@ package al.utile.professional.controller;
 
 
 import al.utile.professional.service.ProfessionService;
-import al.utile.utile_common.utile.ProfessionDto;
+import al.utile.utile_common.utile.dto.ProfessionDto;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

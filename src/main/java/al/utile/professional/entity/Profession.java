@@ -1,6 +1,6 @@
 package al.utile.professional.entity;
 
-import al.utile.utile_common.utile.StatusEnum;
+import al.utile.utile_common.utile.dto.StatusEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

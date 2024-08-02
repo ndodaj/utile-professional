@@ -5,7 +5,7 @@ import al.utile.professional.entity.Profession;
 import al.utile.professional.entity.Professional;
 import al.utile.professional.repository.ProfessionRepository;
 import al.utile.professional.repository.ProfessionalRepository;
-import al.utile.utile_common.utile.ProfessionalDto;
+import al.utile.utile_common.utile.dto.ProfessionalDto;
 import jakarta.ws.rs.NotFoundException;
 import org.springframework.stereotype.Service;
 

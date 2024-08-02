@@ -3,7 +3,7 @@ package al.utile.professional.service;
 import al.utile.professional.converter.ProfessionConverter;
 import al.utile.professional.entity.Profession;
 import al.utile.professional.repository.ProfessionRepository;
-import al.utile.utile_common.utile.ProfessionDto;
+import al.utile.utile_common.utile.dto.ProfessionDto;
 import jakarta.ws.rs.NotFoundException;
 import org.springframework.stereotype.Service;
 
