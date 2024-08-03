@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/professionals")
+@RequestMapping("/professionals")
 public class ProfessionalController {
 
     private final ProfessionalService professionalService;
